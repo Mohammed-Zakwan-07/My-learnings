@@ -23,7 +23,8 @@ I'm constantly improving my skills and exploring new technologies. Currently, I'
 - Full-Stack Development
 - Data Structures and Algorithms
 
---
+---
+
 ## ✨ My Goals
 - Build a portfolio of impactful projects
 - Contribute to open-source communities
