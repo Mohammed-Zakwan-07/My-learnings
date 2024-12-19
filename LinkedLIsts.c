@@ -1,134 +1,243 @@
+/*----------------------------------------------------
+                 linkedlist.c
+                 program t perform operaation on linked list
+                 zakwan
+                 19/12/24
+------------------------------------------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <memory.h>
 
 typedef struct ListType {
-    int Data ;
-    struct ListType *Next;
+	int Data;
+	struct ListType *Next;
 }LISTNODE;
+
 LISTNODE *Head = NULL;
 
-//---prototypes------
-int menu();
-void insertion(int n);
+//---prototypes---------
+void menu();
+void insertion(int num);
 void display();
-void deletion(int n);
+int deletefirst();
+int deletelast();
+int deletegivennum(int delno);
+int maxno();
+void FreeList();
 
-
-int main () {
-    int n, ch, del;
+void main(){
+    int ch, n, num;
     
-    while (1) {
-        ch = menu();
-        
-        switch (ch) {
-            case 1:
-            printf("How many numbers? ");
-            scanf("%d", &n);
-            insertion(n);
-            break;
-        
-            case 2:
-            display();
-            break;
-        
-            case 3:
-            printf("enter the number to be deleted :");
-            scanf("%d", &del);
-            deletion(del);
-            break;
-        
-            case 4:
-            printf("EXITING...");
-            exit(0);
-        
-            default :
-            printf("invalid choice");
-            break;
-        }
-    }
-}
-//---------------------functions------------------------------
-
-int menu() {
-    int choice;
-    printf("\n-----------------------------------------------------\n");
-    printf("----------------CHOOSE AN OPERATION--------------------\n");
-    printf("1.Insert a number in linked list\n");
-    printf("2.Display the contents of the linked list\n");
-    printf("3.Delete a given number in the linked list\n");
-    printf("4.EXIT\n\n");
-    printf("Your choice? ");
-    scanf("%d", &choice);
+    menu();
     
-    return choice;
+	while(1) {
+	    
+	    printf("Your choice ? ");
+	    scanf("%d", &ch);
+		
+		switch(ch) {
+			case 1:
+				printf("how many numbers ? ");
+				scanf("%d", &n);
+				printf("Enter the numbers :\n");
+				for ( int i = 1; i <= n; i++){
+					printf("%d :", i);
+					scanf("%d", &num);
+					insertion(num);
+				}
+				printf("\n\n");
+				break;
+				
+			case 2:
+				display();
+				printf("\n\n");
+				break;
+			
+			case 3:
+				int del1 = deletefirst();
+				printf("%d is deleted from the list\n",del1);
+				display();
+				printf("\n\n");
+				break;
+				
+			case 4:
+				int del2 = deletelast();
+				printf("%d is deleted from the list\n", del2);
+				display();
+				printf("\n\n");
+				break;
+				
+			case 5:
+			    int delno;
+			    printf("Enter the number to be deleted :");
+			    scanf("%d", &delno);
+			    deletegivennum(delno);
+			    printf("%d is deleted from the list\n", delno);
+			    display();
+			    printf("\n\n");
+			    break;
+				
+			case 6:
+				int max;
+				max = maxno();
+				printf("The maximum no is %d\n", max);
+				printf("\n\n");
+				break;
+				
+			case 7:
+			    FreeList();
+				printf("EXITING................\n");
+				printf("\n\n");
+				exit(0);
+				
+			default:
+				printf("INVALID CHOICE !!!!!!\n");
+				printf("\n\n");
+				break;
+		}
+	}
 }
-
-void insertion(int n) {
+//------------------MENU-------------------
+void menu()
+{
+    printf("\n---------------------------\n");
+	printf("-----CHOOSE AN OPERATION--------\n");
+	printf("1.Insert numbers\n");
+	printf("2.Display linked list\n");
+	printf("3.Delete first node\n");
+	printf("4.Delete last node\n");
+	printf("5.Delete a given number\n");
+	printf("6.Find the maximum number\n");
+	printf("7.EXIT\n");
+}
+//------------------Insertion-------------------
+void insertion(int num)
+{
+	LISTNODE *Node ,*Curr, *Prev;
 	
-    LISTNODE *node, *curr;
-    int num;
-    
-    for ( int i = 1; i <= n; i++) {
-        printf("enter the %d number :", i);
-        scanf("%d", &num);
-        
-        node = (LISTNODE*)malloc(sizeof(LISTNODE));
-        if (node == NULL) {
-            printf("memory allocation failed\n");
-            return;
-        }
-        
-        node->Data = num;
-        node->Next = NULL;
-        
-        if (Head == NULL) {
-        Head = node;
-        }else {
-            curr = Head;
-            while ( curr->Next != NULL) {
-                curr = curr->Next;
-            }
-            curr->Next = node;
-        }
-    }
+	Node = (LISTNODE*)malloc(sizeof(LISTNODE));
+	Node->Data = num;
+	Node->Next = NULL;
+	
+	if (Head == NULL) {
+		Head = Node;
+		return;
+	}
+	Curr = Head;
+	while (Curr!=NULL) {
+		Prev = Curr;
+		Curr = Curr->Next;
+	}
+	Prev->Next = Node; 
 }
-
-void display() {
-    LISTNODE *curr;
+//-----------DISPLAY---------------------------
+void display()
+{
+	LISTNODE *Curr;
+	
+	if (Head == NULL) {
+		printf("THE LIST IS EMPT!!\n");
+		return;
+	}
+	
+	Curr = Head;
+	while(Curr != NULL) {
+		printf("%d->", Curr->Data);
+		Curr = Curr->Next;
+	}
+	printf("NULL\n");
+}
+//-----------DELTING FIRST NODE-------------
+int deletefirst() 
+{
+	LISTNODE *Curr;
+	
+	if (Head == NULL) {
+		printf("THE LIST IS EMPTY\n");
+		return 0;
+	}
+	Curr = Head;
+	Head = Head->Next;
+	int num = Curr->Data;
+	free(Curr);
+	return num;
+	
+}
+//---------------DELETING LAST NODE-------------
+int deletelast()
+{
+	LISTNODE *Curr, *Prev;
+	
+	if (Head == NULL) {
+		printf("The list is empty\n");
+		return 0;
+	}
+	Curr = Head;
+	while(Curr->Next != NULL) {
+		Prev = Curr;
+		Curr = Curr->Next;
+	}
+	int num = Curr->Data;
+	Prev->Next = NULL;
+	free(Curr);
+	return num;
+}
+//----------------Delete a given number-------
+int deletegivennum(int delno)
+{
+    LISTNODE *Curr, *Prev ;
+    
+    Curr = Head;
+    Prev = Curr;
     
     if (Head == NULL) {
         printf("The list is empty\n");
-        return;
+        return 0;
     }
     
-    curr = Head;
-    
-    while (curr != NULL) {
-        printf("%d->", curr->Data);
-        curr = curr->Next;
+    if (Head->Data == delno) {
+        Head = Curr->Next;
+        free(Curr);
+        return 0;
     }
-    printf("NULL\n");
-}
-
-void deletion(int del) {
-    LISTNODE *curr = Head;
-    LISTNODE *prev = NULL;
     
-    while (curr != NULL) {
-        if (curr->Data == del) {
-            
-            if (curr == Head) {
-               Head = curr->Next; 
-            }else {
-                prev->Next = curr->Next;
-            }
-            free(curr);
-            printf("DELETED %d from the list.\n", del);
-            return;
+    while(Curr) {
+        if (Curr->Data == delno) {
+            Prev->Next = Curr->Next;
+            free(Curr);
+            return 0;
         }
-        prev = curr;
-        curr = curr->Next;
+        Prev = Curr;
+        Curr = Curr->Next;
     }
-    printf("THE NUMBER %d IS NOT FOUND IN THE LIST\n", del);
+}
+//----------------MAXIMUM NO------------------
+int maxno()
+{
+	LISTNODE *Curr;
+	
+	if (Head == NULL) {
+		printf("THE LIST IS EMPTY\n");
+		return 0;
+	}
+	Curr = Head;
+	int max = Curr->Data;
+	while(Curr != NULL) {
+		if (max < Curr->Data){
+			max = Curr->Data;	
+		}
+		Curr = Curr->Next;
+	}
+	return max;
+}
+//------------free the list--------------------
+void FreeList() {
+    LISTNODE *temp;
+    
+    while (Head != NULL) {
+        temp = Head;
+        Head = Head->Next;
+        free(temp);
+    }
+    printf("Memory freed successfully.\n");
 }
