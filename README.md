@@ -20,8 +20,9 @@ Welcome to my GitHub profile! I'm a **Bachelor of Computer Applications (BCA)** 
 
 ## 🔄 Currently Learning
 I'm constantly improving my skills and exploring new technologies. Currently, I'm diving deeper into:
-- Full-Stack Development
-- Data Structures and Algorithms
+- Full-Stack Development.
+- Data Structures and Algorithms.
+- Java Programing.
 
 ---
 
