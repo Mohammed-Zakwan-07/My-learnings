@@ -1,0 +1,100 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Queue {
+    int Data;
+    struct Queue *Next;
+}QUEUENODE;
+QUEUENODE *Rear = NULL, *Front = NULL;
+
+//-------prototypes----
+void QueueInsertion(int num);
+void Display();
+void deletion();
+
+int main () 
+{
+    int num, n, del;
+    
+    printf("How many nmubers ? ");
+    scanf("%d",&n);
+    
+    for(int i = 1; i <= n; i++) {
+        printf("%d : ",i);
+        scanf("%d", &num);
+        QueueInsertion(num);
+    }
+    Display();
+    deletion();
+    Display();
+    
+    return 0;
+}
+//------------insertiing in the queue---
+void QueueInsertion (int num)
+{
+    QUEUENODE *Node;
+    
+    Node = (QUEUENODE*)malloc(sizeof(QUEUENODE));
+    
+    Node->Data = num;
+    Node->Next = NULL;
+    
+    if (Front == NULL){
+        Front = Node;
+        Rear = Node;
+        return;
+    }
+    Rear->Next = Node;
+    Rear = Node;
+    
+}
+//----------------Displaying the queue-----
+void Display () {
+    if(Front == NULL) {
+        printf("The Queue is empty\n");
+        return;
+    }
+    Rear = Front;
+    while(Rear) {
+        printf("%d -> ", Rear->Data);
+        Rear = Rear->Next;
+    }
+    printf("NULL\n");
+}
+//-----------------deleting a given number----
+void deletion () {
+    int del, deleted = 0;
+    QUEUENODE *Prev = NULL, *temp = Front;
+    
+    printf("Which Number to delete :");
+    scanf("%d", &del);
+    
+    if (Front == NULL) {
+        printf("The Queue is empty\n");
+        return;
+    }
+    
+    if (del == Front->Data) {
+        temp = Front;
+        Front = temp->Next;
+        free(temp);
+        deleted = 1;
+    }
+    while(temp) {
+        if (del == temp->Data) {
+            Prev->Next = temp->Next;
+            free(temp);
+            temp = Prev->Next;
+            deleted = 1;
+            break;
+        }
+        Prev = temp;
+        temp = temp->Next;
+    }
+    if (!deleted) {
+        printf("The number %d is not found\n", del);
+    }else{
+        printf("The number %d got deleted\n", del);
+    }
+}
