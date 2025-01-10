@@ -1,100 +1,129 @@
+/*----------------------------------------------------------------
+				queue.c
+			program to enqueue and dequeue
+				zakwan
+				10/1/25
+------------------------------------------------------------------*/
 #include <stdio.h>
 #include <stdlib.h>
 
 typedef struct Queue {
-    int Data;
-    struct Queue *Next;
+	int Data;
+	struct Queue *Next;
 }QUEUENODE;
-QUEUENODE *Rear = NULL, *Front = NULL;
 
-//-------prototypes----
-void QueueInsertion(int num);
-void Display();
-void deletion();
+QUEUENODE *Front, *Rear;
 
-int main () 
+//-------------prototype
+void menu();
+void InitQueue ();
+void Enqueue (int num);
+void Display ();
+int Dequeue ();
+
+void main ()
 {
-    int num, n, del;
-    
-    printf("How many nmubers ? ");
-    scanf("%d",&n);
-    
-    for(int i = 1; i <= n; i++) {
-        printf("%d : ",i);
-        scanf("%d", &num);
-        QueueInsertion(num);
-    }
-    Display();
-    deletion();
-    Display();
-    
-    return 0;
+	int ch, n, num, del;
+	
+	menu();
+	
+	while(1){
+		printf("\nYOUR CHOICE :");
+		scanf("%d",&ch);
+		
+		switch(ch) {
+			case 1:
+				printf("how many numbers ?");
+				scanf("%d", &n);
+				for (int i=1; i<=n; i++) {
+					printf("%d : ", i);
+					scanf("%d", &num);
+					Enqueue(num);
+				}
+				break;
+			case 2:
+				Display();
+				break;
+			case 3:
+				del = Dequeue();
+				printf("The number %d got deleted\n", del);
+				Display();
+				break;
+			case 4:
+				printf("EXITING.......");
+				exit(1);
+			default :
+				printf("INVALID CHOICE\n");
+				break;
+		}
+	}
 }
-//------------insertiing in the queue---
-void QueueInsertion (int num)
+//------------------menu------
+void menu()
 {
-    QUEUENODE *Node;
-    
-    Node = (QUEUENODE*)malloc(sizeof(QUEUENODE));
-    
-    Node->Data = num;
-    Node->Next = NULL;
-    
-    if (Front == NULL){
-        Front = Node;
-        Rear = Node;
-        return;
-    }
-    Rear->Next = Node;
-    Rear = Node;
-    
+	printf("-----------QUEUE----------\n");
+	printf("1.Enqueue\n");
+	printf("2.Display\n");
+	printf("3.Dequeue\n");
+	printf("4.EXIT\n\n");
 }
-//----------------Displaying the queue-----
-void Display () {
-    if(Front == NULL) {
-        printf("The Queue is empty\n");
-        return;
-    }
-    Rear = Front;
-    while(Rear) {
-        printf("%d -> ", Rear->Data);
-        Rear = Rear->Next;
-    }
-    printf("NULL\n");
+//-------------------InitQueue----------
+void InitQueue()
+{
+	Front = NULL;
+	Rear = NULL;
 }
-//-----------------deleting a given number----
-void deletion () {
-    int del, deleted = 0;
-    QUEUENODE *Prev = NULL, *temp = Front;
-    
-    printf("Which Number to delete :");
-    scanf("%d", &del);
-    
-    if (Front == NULL) {
-        printf("The Queue is empty\n");
-        return;
-    }
-    
-    if (del == Front->Data) {
-        temp = Front;
-        Front = temp->Next;
-        free(temp);
-        deleted = 1;
-    }
-    while(temp) {
-        if (del == temp->Data) {
-            Prev->Next = temp->Next;
-            free(temp);
-            temp = Prev->Next;
-            deleted = 1;
-            break;
-        }
-        Prev = temp;
-        temp = temp->Next;
-    }
-    if (!deleted) {
-        printf("The number %d is not found\n", del);
-    }else{
-        printf("The number %d got deleted\n", del);
-    }
+//-------------------Enqueue------------
+void Enqueue(int num)
+{
+	QUEUENODE *Node;
+	
+	Node = (QUEUENODE *)malloc(sizeof(QUEUENODE));
+	
+	Node->Data = num;
+	Node->Next = NULL;
+	
+	if (Front == NULL){
+		Front = Node;
+		Rear = Node;
+		return;
+	}
+	Rear->Next = Node;
+	Rear = Node;
+}
+void Display()
+{
+	if (Front == NULL) {
+		printf("The queue is empty\n");
+		return;
+	}
+	Rear = Front;
+	
+	while(Rear){
+		printf("%d -> ", Rear->Data);
+		Rear = Rear->Next;
+	}
+	printf("NULL\n");
+}
+int Dequeue()
+{
+	QUEUENODE *Curr;
+	int num;
+	if (Front == NULL) {
+		printf("The queue is empty\n");
+		return;
+	}
+	Curr = Front;
+	if (Front == Rear) {
+		num= Front->Data;
+		free(Curr);
+		Front = NULL;
+		Rear = NULL;
+		return num;
+	}
+	Curr = Front;
+	num = Front->Data;
+	Front = Front->Next;
+	free(Curr);
+	return num;
 }
