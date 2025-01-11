@@ -1,0 +1,90 @@
+.head {
+  font-family: "Oxanium", sans-serif;
+  color: rgb(0, 0, 0);
+  font-size: 64px;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.body {
+  background-image: url("flowers/back.jpeg");
+  background-size: cover;
+  background-position: center;
+  
+}
+
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+
+.flowers {
+  width: 300px;
+  height: 250px;
+  border-radius: 2vw;
+}
+
+
+
+.div1 {
+  font-family: "Oxanium", sans-serif;
+  background-color: rgba(179, 238, 255, 0.75);
+  background: linear-gradient(to bottom, rgb(129, 122, 200), rgb(202, 207, 209));
+  width: 300px;
+  padding: 20px;
+  border-radius: 30px;
+  margin: 10px;
+  cursor: pointer;
+}
+.div1:hover{
+  color: white;
+  box-shadow: 5px 5px 10px rgb(0, 0, 0);
+  transform: scale(1.07);
+  background: linear-gradient(to bottom, rgb(202, 207, 209), rgb(78, 65, 192));
+  transition: transform 0.5s, box-shadow 0.5s, linear-gradient 0.5s;
+}
+.div1:active {
+  transform:scale(1.0);
+  box-shadow: 15px 15px 20px rgb(0, 0, 0);
+  transition: tranform 0.5s, box-shadow 0.5s;
+}
+
+
+.search-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.search-container input {
+  padding: 10px;
+  border-radius: 0.2vw;
+  border: 1px solid #ccc;
+  width: 80%;
+  font-weight: bold;
+}
+
+.search-container button {
+  padding: 10px;
+  border-radius: 0.2vw;
+  background-color: #3cc940; 
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.search-container button:hover {
+  background-color: #4a644b; 
+}
+
+.footer {
+  font-family: "Oxanium", sans-serif;
+  background-color: #8460bd;
+  padding: 10px;
+  margin: 10px 0px;
+  text-align: center;
+}
+
