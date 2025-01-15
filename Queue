@@ -46,6 +46,9 @@ void main ()
 				break;
 			case 3:
 				del = Dequeue();
+				if (del == NULL){
+				    break;
+				}
 				printf("The number %d got deleted\n", del);
 				Display();
 				break;
@@ -111,7 +114,7 @@ int Dequeue()
 	int num;
 	if (Front == NULL) {
 		printf("The queue is empty\n");
-		return;
+		return 0;
 	}
 	Curr = Front;
 	if (Front == Rear) {
