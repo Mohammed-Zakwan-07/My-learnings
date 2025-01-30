@@ -1,0 +1,89 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <memory.h>
+
+
+typedef struct TreeType {
+    int Data;
+    struct TreeType *Left;
+    struct TreeType *Right;
+}TREENODE;
+TREENODE *Root = NULL;
+
+void InsertTreeNode(int num);
+void Preorder(TREENODE *Root);
+void Postorder(TREENODE *Root);
+void Inorder(TREENODE *Root);
+
+void main () {
+    int n, num;
+    printf("How many numbers ? ");
+    scanf("%d", &n);
+    for (int i = 1; i <= n; i++) {
+        printf("1 : ");
+        scanf("%d", &num);
+        InsertTreeNode(num);
+    }
+    printf("Preorder traversal \n");
+    Preorder(Root);
+    printf("\n");
+    
+    printf("Postorder traversal \n");
+    Postorder(Root);
+    printf("\n");
+    
+    printf("Inorder traversal \n");
+    Inorder(Root);
+    printf("\n");
+}
+
+void InsertTreeNode(int num) {
+    TREENODE *Prev = NULL, *Curr, *Node;
+    
+    Node = (TREENODE *)malloc(sizeof(TREENODE));
+    
+    Node->Data = num;
+    Node->Left = NULL;
+    Node->Right = NULL;
+    
+    if (Root == NULL) {
+        Root = Node;
+        return;
+    }
+    Curr = Root;
+    while (Curr) {
+        if (num <= Curr->Data) {
+            Prev = Curr;
+            Curr = Curr->Left;
+        }else{
+            Prev = Curr;
+            Curr = Curr->Right;
+        }
+    }
+    if (num < Prev->Data) {
+        Prev->Left = Node;
+    }else{
+        Prev->Right = Node;
+    }
+}
+void Preorder(TREENODE *Root) {
+    if (Root) {
+        printf("%d ", Root->Data);
+        Preorder(Root->Left);
+        Preorder(Root->Right);
+    }
+}
+void Postorder(TREENODE *Root) {
+    if (Root) {
+        Postorder(Root->Left);
+        Postorder(Root->Right);
+        printf("%d ", Root->Data);
+    }
+}
+void Inorder(TREENODE *Root) {
+    if (Root) {
+        Inorder(Root->Left);
+        printf("%d ", Root->Data);
+        Inorder(Root->Right);
+    }
+}
