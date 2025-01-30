@@ -20,7 +20,7 @@ void main () {
     printf("How many numbers ? ");
     scanf("%d", &n);
     for (int i = 1; i <= n; i++) {
-        printf("1 : ");
+        printf("%d : ", i);
         scanf("%d", &num);
         InsertTreeNode(num);
     }
