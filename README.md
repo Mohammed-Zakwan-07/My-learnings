@@ -23,6 +23,9 @@ I'm constantly improving my skills and exploring new technologies. Currently, I'
 - Full-Stack Development.
 - Data Structures and Algorithms.
 - Java Programing.
+- R programming
+- Tailwind CSS
+- React JS
 
 ---
 
