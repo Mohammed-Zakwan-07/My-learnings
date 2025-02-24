@@ -1,9 +1,3 @@
-/*--------------------------------
-              stack.c
-              zakwan
-              24/2/25
-----------------------------------*/
-
 #include <stdio.h>
 #include <stdlib.h>
 #define SIZE 25
@@ -22,6 +16,7 @@ void push(int num);
 int pop();
 int peek();
 int isEmpty();
+void Display();
 
 int main() {
     int n, num, ch;
@@ -62,8 +57,12 @@ int main() {
                     printf("Top of the stack: %d\n", num);
                 }
                 break;
+                
+            case 4:
+                Display();
+                break;
 
-            case 4: // Exit
+            case 5: // Exit
                 printf("Exiting...\n");
                 exit(0);
 
@@ -85,7 +84,8 @@ void menu() {
     printf("1. Push\n");
     printf("2. Pop\n");
     printf("3. Peek\n");
-    printf("4. Exit\n");
+    printf("4. Display\n");
+    printf("5.Exit\n");
 }
 
 // Push operation
@@ -118,4 +118,15 @@ int peek() {
 // Check if stack is empty
 int isEmpty() {
     return s.top == -1;
+}
+
+//Display fuction
+void Display() {
+    if (isEmpty()) {
+        printf("Stack empty !!\n");
+    }else{
+        for (int i = s.top; i >= 0; i--) {
+            printf("%d \n", s.arr[i]);
+        }
+    }
 }
