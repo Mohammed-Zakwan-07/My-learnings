@@ -38,50 +38,43 @@ int main() {
     while (1) {
         printf("\nYour choice: ");
         scanf("%d", &ch);
+        printf("\n");
 
         switch (ch) {
             case 1:
-                printf("\n");
                 reverse();
                 break;
                 
             case 2:
-                printf("\n");
                 palindrome();
                 break;
                 
             case 3:
-                printf("\n");
                 factorial();
                 break;
                 
             case 4:
-                printf("\n");
                 fibonacci();
                 break;
                 
             case 5:
-                printf("\n");
                 DecimalToBinary();
                 break;
 
             case 6:
-                printf("\n");
                 printf("exiting........");    
                 exit(0);
+                
             default:
-                printf("\n");
                 printf("Invalid choice! Try again.\n");
                 break;
         }
     }
 }
-
 // Initialize stack
 void initStack() {
     s.top = -1;
 }
-
 // Display menu
 void menu() {
     printf("STACK Applications \n");
@@ -92,7 +85,6 @@ void menu() {
     printf("5. Decimal to binary converter\n");
     printf("6. Exit\n");
 }
-
 // Push operation
 void push(int num) {
     if (s.top == SIZE - 1) {
@@ -101,7 +93,6 @@ void push(int num) {
     }
     s.arr[++s.top] = num;
 }
-
 // Push operation for char
 void pushs(char ch) {
     if (s.top == SIZE - 1) {
@@ -110,7 +101,6 @@ void pushs(char ch) {
     }
     s.arr[++s.top] = ch;
 }
-
 // Pop operation
 int pop() {
     if (isEmpty()) {
@@ -119,7 +109,6 @@ int pop() {
     }
     return s.arr[s.top--];
 }
-
 // Pop operation for char
 char pops() {
     if (isEmpty()) {
@@ -128,13 +117,10 @@ char pops() {
     }
     return s.arr[s.top--];
 }
-
-
 // Check if stack is empty
 int isEmpty() {
     return s.top == -1;
 }
-
 // reverse a string 
 void reverse() {
     char str[SIZE];
@@ -151,7 +137,7 @@ void reverse() {
         pushs(str[i]);
     }
 
-    while (s.top != -1) {
+    while (!isEmpty()) {
         answer[j++] = pops();
     }
     answer[j] = '\0'; 
@@ -186,7 +172,6 @@ void palindrome() {
         printf("The string is not a palindrome.\n");
     }
 }
-
 // Factorial function
 void factorial() {
     int i = 1, n, fact, num;
@@ -204,7 +189,6 @@ void factorial() {
 
     printf("Factorial of %d is %d\n", n, fact);
 }
-
 // Fibonacci series function
 void fibonacci() {
     int i, n, F1 = 0, F2 = 1, F3;
@@ -229,13 +213,11 @@ void fibonacci() {
         i++;
     }
     printf("Fibonacci series : ");
-    for (int i = 0; i <= n; i++) {
+    for (int i = 0; i < n; i++) {
         printf("%d ", s.arr[i]);
     }
     printf("\n");
 }
-
-
 // Decimal to Binary converter
 void DecimalToBinary() {
     initStack();
